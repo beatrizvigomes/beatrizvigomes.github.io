@@ -109,7 +109,7 @@ body { background: var(--bg); color: var(--text); font-family: var(--sans); }
 }
 .panel {
   width: min(960px, 100%); height: min(600px, 86vh);
-  display: grid; grid-template-columns: 250px 1fr;
+  display: grid; grid-template-columns: 250px 1fr; grid-template-rows: auto minmax(0, 1fr);   /* row 1 = the terminal bar */
   background: var(--panel); border: 1px solid var(--line);
   box-shadow: 0 30px 80px rgba(0, 0, 0, .6);
 }
@@ -148,7 +148,7 @@ body { background: var(--bg); color: var(--text); font-family: var(--sans); }
 @keyframes lineIn { to { opacity: 1; transform: none } }
 
 @media (max-width: 720px) {
-  .panel { grid-template-columns: 1fr; grid-template-rows: auto 1fr; height: auto; min-height: 70vh; }
+  .panel { grid-template-columns: 1fr; grid-template-rows: auto auto 1fr; height: auto; min-height: 70vh; }
   .side { padding: 1.2rem; border-right: 0; border-bottom: 1px solid var(--line); }
   .side-head { margin-bottom: 1rem; }
   .nav { flex-direction: row; flex-wrap: wrap; }
@@ -226,3 +226,16 @@ html { scrollbar-width: thin; scrollbar-color: #7a2229 var(--bg); }
   .photo img { transition: none; }
   .lightbox.open { animation: none; }
 }
+
+/* ---------- The terminal title bar across the top of the panel (from the first version) ---------- */
+.term-bar {
+  grid-column: 1 / -1;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: .45rem 1.3rem;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--pixel); font-size: 1.45rem; letter-spacing: .06em;
+}
+.term-bar .prompt { color: var(--green-dim); }
+.term-bar .exit { background: none; border: 0; cursor: pointer; font: inherit; letter-spacing: inherit; color: var(--red-text); transition: color .25s; }
+.term-bar .exit:hover { color: #ec6a73; }
+.term-bar .exit:focus-visible { outline: 1px solid var(--red-text); outline-offset: 3px; }

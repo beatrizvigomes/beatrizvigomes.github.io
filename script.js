@@ -500,6 +500,7 @@ lbEl.addEventListener('touchend', e => {
 }, { passive: true });
 
 document.getElementById('toRoom').addEventListener('click', () => window.scrollTo({ top: 0, behavior }));
+document.getElementById('termExit').addEventListener('click', () => window.scrollTo({ top: 0, behavior }));   // "[esc] exit" in the terminal bar
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape' && !lbOpen()) window.scrollTo({ top: 0, behavior });
 });
