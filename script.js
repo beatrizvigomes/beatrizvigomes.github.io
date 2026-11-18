@@ -344,6 +344,17 @@ if (!reduceMotion) setInterval(render, 120);
    Same panel whether you click the screen or just scroll down.
    (each array item is one block; keep a whole <ul> in ONE item)
    ========================================================= */
+// The photographs in "off-screen". To add one: put the file in the images/ folder and add a line here.
+// (Keep them around 1100px on the long side and under ~300 KB so the site stays fast.)
+// place = the caption shown under the photo; alt = a description for screen readers (not shown).
+const PHOTOS = [
+  { src: 'images/offscreen-01.jpg', place: 'Pyrenees',    alt: 'a mountain river running between forested slopes' },
+  { src: 'images/offscreen-02.jpg', place: 'Switzerland', alt: 'wooden farmhouses in a green valley below a waterfall' },
+  { src: 'images/offscreen-03.jpg', place: 'Menorca',     alt: 'sunset over the sea, seen through a rock arch' },
+  { src: 'images/offscreen-04.jpg', place: 'Tanzania',    alt: 'zebras walking across a plain below distant hills' },
+  { src: 'images/offscreen-05.jpg', place: 'Pyrenees',    alt: 'a turquoise river below rocky mountains' },
+];
+
 const SECTIONS = {
   about: {
     title: 'about',
@@ -389,14 +400,13 @@ const SECTIONS = {
       '<span class="eyebrow">04 — off-screen</span>',
       '<h2>Off-screen.</h2>',
       '<p>Outside of technology, I’m drawn to cinema, music and the outdoors, particularly to the ways they shape how we see and experience our surroundings.</p>',
-      // The photographs live in the images/ folder. To add one, drop the file there and add another <img> line.
+      // The wall is built from the PHOTOS list above. Click one and the lightbox opens.
       '<div class="photos">' +
-        '<img src="images/offscreen-01.jpg" alt="A mountain river running between forested slopes" loading="lazy">' +
-        '<img src="images/offscreen-02.jpg" alt="Wooden farmhouses in a green valley below a waterfall" loading="lazy">' +
-        '<img src="images/offscreen-03.jpg" alt="Sunset over the sea, seen through a rock arch" loading="lazy">' +
-        '<img src="images/offscreen-04.jpg" alt="Zebras walking across a plain below distant hills" loading="lazy">' +
-        '<img src="images/offscreen-05.jpg" alt="A turquoise river below rocky mountains" loading="lazy">' +
+        PHOTOS.map((p, i) =>
+          `<button class="photo" type="button" data-i="${i}" aria-label="Look closer: ${p.place}. ${p.alt}"><img src="${p.src}" alt="${p.alt}" loading="lazy"></button>`
+        ).join('') +
       '</div>',
+      '<p class="photos-hint">click a photo to look closer</p>',
     ],
   },
   contact: {
@@ -444,9 +454,54 @@ function show(key) {
 function goTo(key) { show(key); page.scrollIntoView({ behavior }); }
 document.querySelectorAll('[data-open]').forEach(el => el.addEventListener('click', () => goTo(el.dataset.open)));
 document.getElementById('scrollCue').addEventListener('click', () => goTo(current));
+/* ---------- Lightbox: click a photo to look at it properly ---------- */
+const lbEl = document.getElementById('lightbox');
+const lbImg = document.getElementById('lbImg');
+const lbCap = document.getElementById('lbCap');
+let lbIndex = 0, lbReturnFocus = null;
+const lbOpen = () => lbEl.classList.contains('open');
+
+function lbShow(i) {
+  lbIndex = (i + PHOTOS.length) % PHOTOS.length;
+  const p = PHOTOS[lbIndex];
+  lbImg.src = p.src; lbImg.alt = p.alt;
+  lbCap.innerHTML = `<span class="lb-count">${String(lbIndex + 1).padStart(2, '0')} / ${String(PHOTOS.length).padStart(2, '0')}</span> ${p.place}`;
+}
+function lbOpenAt(i) {
+  lbReturnFocus = document.activeElement;
+  lbShow(i);
+  lbEl.classList.add('open'); lbEl.setAttribute('aria-hidden', 'false');
+  document.documentElement.style.overflow = 'hidden';          // no page scroll behind it
+  lbEl.querySelector('.lb-close').focus();
+}
+function lbClose() {
+  lbEl.classList.remove('open'); lbEl.setAttribute('aria-hidden', 'true');
+  document.documentElement.style.overflow = '';
+  if (lbReturnFocus) lbReturnFocus.focus();
+}
+panel.addEventListener('click', e => { const b = e.target.closest('.photo'); if (b) lbOpenAt(+b.dataset.i); });
+lbEl.addEventListener('click', e => {
+  if (e.target.closest('.lb-prev')) lbShow(lbIndex - 1);
+  else if (e.target.closest('.lb-next') || e.target === lbImg) lbShow(lbIndex + 1);
+  else if (!e.target.closest('figcaption')) lbClose();            // click on the dark backdrop or the close button
+});
+document.addEventListener('keydown', e => {
+  if (!lbOpen()) return;
+  if (e.key === 'ArrowLeft') lbShow(lbIndex - 1);
+  if (e.key === 'ArrowRight') lbShow(lbIndex + 1);
+  if (e.key === 'Escape') lbClose();
+});
+let touchX = null;                                                // swipe on a phone
+lbEl.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; }, { passive: true });
+lbEl.addEventListener('touchend', e => {
+  if (touchX === null) return;
+  const dx = e.changedTouches[0].clientX - touchX; touchX = null;
+  if (Math.abs(dx) > 40) lbShow(lbIndex + (dx < 0 ? 1 : -1));
+}, { passive: true });
+
 document.getElementById('toRoom').addEventListener('click', () => window.scrollTo({ top: 0, behavior }));
 document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') window.scrollTo({ top: 0, behavior });
+  if (e.key === 'Escape' && !lbOpen()) window.scrollTo({ top: 0, behavior });
   // press C to try the armchair in each colour (a design tool; delete this block once you've chosen)
   if (e.key === 'c' || e.key === 'C') {
     const names = Object.keys(CHAIRS), next = names[(names.findIndex(n => CHAIRS[n] === CHAIR) + 1) % names.length];

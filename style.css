@@ -176,15 +176,56 @@ html { scrollbar-width: thin; scrollbar-color: #7a2229 var(--bg); }
 .content .hl { color: var(--red-text); }
 .content a:hover { color: var(--red-text); border-bottom-color: var(--red-text); }
 
-/* ---------- "off-screen": a small wall of framed photographs ---------- */
+/* ---------- "off-screen": a wall of framed photographs you can explore ---------- */
 .photos { display: grid; grid-template-columns: repeat(6, 1fr); gap: .8rem; max-width: 38rem; margin-top: 1.8rem; }
-.photos img {
-  display: block; width: 100%; object-fit: cover;
-  padding: 4px; background: #050807; border: 1px solid rgba(109, 255, 176, .14);   /* a dark mat, like a frame */
-  filter: brightness(.9) saturate(.95); transition: filter .4s;
+.photo {
+  display: block; padding: 4px; margin: 0; overflow: hidden; cursor: zoom-in;
+  background: #050807; border: 1px solid rgba(109, 255, 176, .14);                 /* a dark mat, like a frame */
+  transition: border-color .35s, filter .45s;
+  animation: photoIn .8s ease both;                                                  /* they "light up" one by one */
 }
-.photos img:hover { filter: brightness(1.05) saturate(1); }
-.photos img:nth-child(-n+3) { grid-column: span 2; aspect-ratio: 2 / 3; }
-.photos img:nth-child(n+4) { grid-column: span 3; aspect-ratio: 4 / 3; }
-.photos img:nth-child(4) { object-position: 50% 72%; }
-.photos img:nth-child(5) { object-position: 50% 62%; }
+.photo img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .9s cubic-bezier(.2, .7, .2, 1); }
+.photo:nth-child(-n+3) { grid-column: span 2; aspect-ratio: 2 / 3; }
+.photo:nth-child(n+4)  { grid-column: span 3; aspect-ratio: 4 / 3; }
+.photo:nth-child(4) img { object-position: 50% 72%; }
+.photo:nth-child(5) img { object-position: 50% 62%; }
+.photo:nth-child(1) { animation-delay: .15s; } .photo:nth-child(2) { animation-delay: .3s; }
+.photo:nth-child(3) { animation-delay: .45s; } .photo:nth-child(4) { animation-delay: .6s; }
+.photo:nth-child(5) { animation-delay: .75s; }
+@keyframes photoIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+/* gallery spotlight: the photo under the cursor comes forward, the others fall into the dark */
+.photos:hover .photo:not(:hover) { filter: brightness(.35) saturate(.7); }
+.photo:hover { border-color: var(--red-text); }
+.photo:hover img { transform: scale(1.07); }
+.photo:focus-visible { outline: 1px solid var(--red-text); outline-offset: 3px; }
+
+.content .photos-hint { margin-top: 1rem; font-family: var(--pixel); font-size: 1.15rem; letter-spacing: .08em; color: var(--green-dim); }
+
+/* ---------- Lightbox ---------- */
+.lightbox {
+  position: fixed; inset: 0; z-index: 20;
+  display: none; place-items: center;
+  background: rgba(3, 4, 4, .98);
+}
+.lightbox.open { display: grid; animation: fade .3s ease; }
+.lb-figure { margin: 0; max-width: 84vw; text-align: center; }
+.lb-figure img {
+  display: block; margin: 0 auto; max-width: 84vw; max-height: 76vh; object-fit: contain; cursor: pointer;
+  padding: 6px; background: #050807; border: 1px solid rgba(109, 255, 176, .2);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, .7);
+}
+.lb-figure figcaption { margin-top: 1rem; font-family: var(--pixel); font-size: 1.3rem; letter-spacing: .06em; text-transform: lowercase; color: var(--green-dim); }
+.lb-count { color: var(--red-text); margin-right: .8rem; }
+.lb-nav, .lb-close { position: absolute; background: none; border: 0; cursor: pointer; font-family: var(--pixel); color: var(--green-dim); transition: color .25s; }
+.lb-nav { top: 50%; transform: translateY(-50%); font-size: 4rem; line-height: 1; padding: 1rem 1.4rem; }
+.lb-prev { left: 1vw; } .lb-next { right: 1vw; }
+.lb-close { top: 1.2rem; right: 1.6rem; font-size: 1.4rem; letter-spacing: .1em; }
+.lb-nav:hover, .lb-close:hover { color: var(--red-text); }
+.lb-nav:focus-visible, .lb-close:focus-visible { outline: 1px solid var(--red-text); }
+
+@media (prefers-reduced-motion: reduce) {
+  .photo { animation: none; }
+  .photo img { transition: none; }
+  .lightbox.open { animation: none; }
+}
