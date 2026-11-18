@@ -451,7 +451,7 @@ function show(key) {
 }
 
 // Clicking the screen / picture (or the scroll cue) glides down to the panel
-function goTo(key) { show(key); page.scrollIntoView({ behavior }); }
+function goTo(key) { if (key !== current) show(key); page.scrollIntoView({ behavior }); }   // only re-render if the section really changes
 document.querySelectorAll('[data-open]').forEach(el => el.addEventListener('click', () => goTo(el.dataset.open)));
 document.getElementById('scrollCue').addEventListener('click', () => goTo(current));
 /* ---------- Lightbox: click a photo to look at it properly ---------- */
@@ -505,8 +505,6 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape' && !lbOpen()) window.scrollTo({ top: 0, behavior });
 });
 
-// Replay the little reveal each time the panel scrolls into view
-new IntersectionObserver(([e]) => { if (e.isIntersecting) show(current); }, { threshold: 0.6 }).observe(page);
 
 const mon = document.querySelector('.hs-monitor');
 mon.addEventListener('mouseenter', () => screenHot = true);
