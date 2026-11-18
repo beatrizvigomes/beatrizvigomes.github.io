@@ -353,6 +353,7 @@ const PHOTOS = [
   { src: 'images/offscreen-03.jpg', place: 'Menorca',     alt: 'sunset over the sea, seen through a rock arch' },
   { src: 'images/offscreen-04.jpg', place: 'Tanzania',    alt: 'zebras walking across a plain below distant hills' },
   { src: 'images/offscreen-05.jpg', place: 'Pyrenees',    alt: 'a turquoise river below rocky mountains' },
+  { src: 'images/offscreen-06.jpg', place: 'Croatia',     alt: 'waterfalls in a snowy gorge above turquoise pools' },
 ];
 
 const SECTIONS = {
