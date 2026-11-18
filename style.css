@@ -1,0 +1,160 @@
+/* ---------- Design tokens: change colors/fonts here ---------- */
+:root {
+  --bg: #060405;
+  --panel: #070a09;
+  --cream: #e6dccf;
+  --text: #c4c8c2;
+  --muted: #7d8780;
+  --red: #a3262e;              /* muted Twin Peaks red */
+  --green: #6dffb0;            /* CRT phosphor */
+  --green-dim: #2e8a5c;
+  --line: rgba(109, 255, 176, .16);
+
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans: 'Inter', system-ui, sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --pixel: 'VT323', ui-monospace, monospace;   /* the pixel font from the first version */
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { background: var(--bg); scroll-snap-type: y proximity; }
+body { background: var(--bg); color: var(--text); font-family: var(--sans); }
+
+/* ---------- 1. The room (fills the whole screen, like background-size: cover) ---------- */
+.stage {
+  position: relative;
+  height: 100vh; height: 100svh;
+  overflow: hidden;
+  scroll-snap-align: start;
+}
+.world {
+  position: absolute; left: 50%; top: 50%;
+  width: max(100vw, calc(100vh * 16 / 9));   /* 16:9 scene, scaled to cover the viewport */
+  aspect-ratio: 16 / 9;
+  transform: translate(-50%, -50%);
+}
+#scene { position: absolute; inset: 0; width: 100%; height: 100%; image-rendering: pixelated; }
+.fx { position: absolute; inset: 0; pointer-events: none; }
+
+.glow-lamp {
+  /* candlelight: the flicker is driven from script.js */
+  background: radial-gradient(ellipse 20% 40% at 56.75% 37%, rgba(255, 190, 80, .15), rgba(255, 160, 50, .04) 55%, transparent 72%);
+  mix-blend-mode: screen;
+}
+.glow-screen {
+  background: radial-gradient(ellipse 11% 18% at 47.5% 47.6%, rgba(109, 255, 176, .14), transparent 80%);
+  mix-blend-mode: screen;
+  transition: opacity .4s;
+}
+.vignette { background: radial-gradient(ellipse at 50% 50%, transparent 50%, rgba(0, 0, 0, .6) 100%); }
+
+/* ---------- Title ---------- */
+.title { position: absolute; left: 11.5%; top: 8%; pointer-events: none; }
+.title h1 {
+  font-family: var(--serif); font-style: italic; font-weight: 400;
+  font-size: clamp(1.6rem, 3.4vw, 3.4rem); line-height: 1;
+  color: var(--cream); letter-spacing: .01em;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, .7);
+}
+.title p { margin-top: .6em; }
+.title p { font-family: var(--pixel); font-size: clamp(.95rem, 1.45vw, 1.5rem); letter-spacing: .1em; text-transform: lowercase; color: var(--green-dim); }
+
+/* ---------- "There's more below" cue ---------- */
+.scroll-cue {
+  position: absolute; left: 50%; bottom: 3.5%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: .7rem;
+  background: none; border: 0; cursor: pointer;
+  font-family: var(--pixel); font-size: clamp(.9rem, 1.3vw, 1.3rem);
+  letter-spacing: .2em; text-transform: lowercase; color: var(--green-dim);
+  transition: color .3s;
+}
+.scroll-cue:hover { color: var(--cream); }
+.scroll-cue i { width: 1px; height: 2.4rem; background: linear-gradient(var(--muted), transparent); animation: drip 2.2s ease-in-out infinite; transform-origin: top; }
+@keyframes drip { 0% { transform: scaleY(0); opacity: 0 } 40% { opacity: 1 } 100% { transform: scaleY(1); opacity: 0 } }
+
+/* ---------- Hotspots (% of the 320x180 scene) ---------- */
+.hotspot { position: absolute; background: transparent; border: 0; cursor: pointer; }
+.hs-monitor { left: 43.25%; top: 41.8%; width: 8.5%; height: 11.1%; }
+.hs-picture { left: 68.5%;   top: 13.3%; width: 11%;  height: 17.8%; }
+.hs-music   { left: 17.25%; top: 58.2%; width: 15.5%;  height: 20.4%; }
+
+.hotspot::after {
+  content: attr(data-label);
+  position: absolute; left: 50%; bottom: calc(100% + .7em);
+  transform: translateX(-50%) translateY(4px);
+  white-space: nowrap;
+  font-family: var(--pixel); font-size: clamp(.9rem, 1.4vw, 1.4rem);
+  letter-spacing: .14em; text-transform: lowercase; color: var(--green);
+  opacity: 0; transition: opacity .3s, transform .3s, color .3s;
+}
+.hotspot:hover::after, .hotspot:focus-visible::after { opacity: .95; transform: translateX(-50%); }
+.hotspot:focus-visible { outline: 1px solid var(--green); outline-offset: 4px; }
+
+/* the screen announces itself: a pulsing ring + a label that is always visible */
+.hs-monitor { border: 1px solid rgba(109, 255, 176, .5); border-radius: 3px; animation: ping 2.6s ease-out infinite; }
+.hs-monitor::after { opacity: .95; transform: translateX(-50%); animation: nudge 2.6s ease-in-out infinite; }
+.hs-monitor:hover { animation-play-state: paused; border-color: var(--green); }
+.hs-monitor:hover::after { color: var(--cream); }
+@keyframes ping { 0% { box-shadow: 0 0 0 0 rgba(109, 255, 176, .45) } 75%, 100% { box-shadow: 0 0 0 1.1vw rgba(109, 255, 176, 0) } }
+@keyframes nudge { 0%,100% { transform: translateX(-50%) translateY(0) } 50% { transform: translateX(-50%) translateY(-3px) } }
+
+/* ---------- 2. The panel (same thing you get by clicking the screen) ---------- */
+.page {
+  min-height: 100vh;
+  display: grid; place-items: center;
+  padding: 6vmin 4vmin;
+  scroll-snap-align: start;
+  background: radial-gradient(ellipse at 50% 0%, #0d1411 0%, var(--bg) 70%);
+}
+.panel {
+  width: min(960px, 100%); height: min(600px, 86vh);
+  display: grid; grid-template-columns: 250px 1fr;
+  background: var(--panel); border: 1px solid var(--line);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, .6);
+}
+.side { display: flex; flex-direction: column; padding: 2rem 1.6rem 1.4rem; border-right: 1px solid var(--line); }
+.side-head { margin-bottom: 2.4rem; }
+.side-head .name { display: block; font-family: var(--serif); font-style: italic; font-size: 1.5rem; color: var(--cream); }
+.side-head .role { display: block; margin-top: .4rem; font-family: var(--mono); font-size: .65rem; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+
+.nav { display: flex; flex-direction: column; gap: .15rem; flex: 1; }
+.nav button {
+  display: flex; gap: .9rem; align-items: baseline;
+  text-align: left; background: none; border: 0; cursor: pointer;
+  padding: .55rem 0 .55rem .9rem; border-left: 1px solid transparent;
+  font-family: var(--mono); font-size: .72rem; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--muted); transition: color .25s, border-color .25s;
+}
+.nav button span { color: var(--red); opacity: .9; }
+.nav button:hover { color: var(--cream); }
+.nav button.active { color: var(--cream); border-left-color: var(--green); }
+
+.back { align-self: flex-start; background: none; border: 0; cursor: pointer; font-family: var(--mono); font-size: .62rem; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+.back:hover { color: var(--cream); }
+
+.content { padding: 2.6rem 3rem; overflow-y: auto; }
+.content .eyebrow { display: block; margin-bottom: 1rem; font-family: var(--mono); font-size: .68rem; letter-spacing: .24em; text-transform: uppercase; color: var(--green); }
+.content h2 { font-family: var(--serif); font-weight: 500; font-size: clamp(1.9rem, 3.4vw, 2.8rem); line-height: 1.1; color: var(--cream); margin-bottom: 1.4rem; }
+.content p { font-weight: 300; font-size: 1rem; line-height: 1.75; color: var(--text); max-width: 34rem; margin-bottom: 1rem; }
+.content p.note { font-family: var(--mono); font-size: .72rem; color: var(--muted); }
+.content ul { list-style: none; max-width: 34rem; border-top: 1px solid var(--line); }
+.content li { padding: .9rem 0; border-bottom: 1px solid var(--line); font-weight: 300; line-height: 1.5; color: var(--text); }
+.content li b { font-family: var(--serif); font-weight: 500; font-size: 1.2rem; color: var(--cream); display: block; }
+.content a { color: var(--green); text-decoration: none; border-bottom: 1px solid rgba(109, 255, 176, .3); }
+.content a:hover { border-bottom-color: var(--green); }
+.content .line { opacity: 0; transform: translateY(6px); animation: lineIn .5s ease forwards; }
+@keyframes lineIn { to { opacity: 1; transform: none } }
+
+@media (max-width: 720px) {
+  .panel { grid-template-columns: 1fr; grid-template-rows: auto 1fr; height: auto; min-height: 70vh; }
+  .side { padding: 1.2rem; border-right: 0; border-bottom: 1px solid var(--line); }
+  .side-head { margin-bottom: 1rem; }
+  .nav { flex-direction: row; flex-wrap: wrap; }
+  .back { display: none; }
+  .content { padding: 1.6rem 1.4rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .glow-lamp, .scroll-cue i, .hs-monitor, .hs-monitor::after, .content .line { animation: none; opacity: 1; transform: none; }
+  .hs-monitor::after { transform: translateX(-50%); }
+}

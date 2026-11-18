@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Beatriz Gomes — Software Engineer & UX/UI Designer</title>
+  <meta name="description" content="Software engineer leaning frontend, with a UX/UI designer's eye.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=IBM+Plex+Mono:wght@400&family=Inter:wght@300;400&family=VT323&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- 1. The room: fills the whole screen -->
+  <main class="stage" id="stage">
+    <div class="world">
+      <canvas id="scene" aria-hidden="true"></canvas>
+      <div class="fx glow-lamp"></div>
+      <div class="fx glow-screen" id="glowScreen"></div>
+
+      <button class="hotspot hs-monitor" data-open="about" data-label="click to enter" aria-label="Enter: open the portfolio"></button>
+      <button class="hotspot hs-picture" data-open="trails" data-label="trails" aria-label="Open the trails section"></button>
+      <button class="hotspot hs-music" data-open="trails" data-label="records &amp; films" aria-label="Open the trails, records and films section"></button>
+    </div>
+
+    <div class="fx vignette"></div>
+
+    <header class="title">
+      <h1>Beatriz Gomes</h1>
+      <p>Software Engineer &middot; Frontend &middot; UX/UI Design</p>
+    </header>
+
+    <button class="scroll-cue" id="scrollCue" aria-label="Scroll down to the portfolio">
+      <span>scroll</span><i aria-hidden="true"></i>
+    </button>
+  </main>
+
+  <!-- 2. The same content you get by clicking the screen -->
+  <section class="page" id="content" aria-label="Portfolio">
+    <div class="panel">
+      <aside class="side">
+        <div class="side-head">
+          <span class="name">Beatriz Gomes</span>
+          <span class="role">Engineer &amp; Designer</span>
+        </div>
+        <nav class="nav" id="termNav"></nav>
+        <button class="back" id="toRoom">&uarr; back to the room</button>
+      </aside>
+      <article class="content" id="termPanel"></article>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>

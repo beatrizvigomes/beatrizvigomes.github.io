@@ -1,0 +1,8 @@
+# Old design iterations (kept locally, not part of the site)
+v[0-9]*-*/
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
