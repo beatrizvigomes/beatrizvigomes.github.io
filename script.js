@@ -239,14 +239,14 @@ function drawRoom() {
     R(23 + dx, y + 2, 26, 1, 'rgba(0,0,0,.25)');
   });
   // record player (turntable) on top of the stack
-  rr(19, 119, 34, 10, 2, '#3a2216'); R(19, 119, 34, 1, '#5a3a28');                    // walnut plinth
+  rr(19, 119, 34, 10, 2, '#2a1810'); R(19, 119, 34, 1, '#3a2417');                    // walnut plinth
   R(22, 129, 4, 1, '#16100c'); R(46, 129, 4, 1, '#16100c');                           // feet
-  poly([[21, 108], [51, 108], [54, 119], [18, 119]], '#5a3a28');                      // top surface, seen from above
-  ellipse(33, 114, 13, 4, '#0b0b0f'); ellipse(33, 114, 10, 3, '#22222a');             // vinyl on the platter, with a groove ring
-  ellipse(33, 114, 4, 2, '#a3262e'); P(33, 114, '#0b0b0f');                           // label + spindle
-  R(48, 109, 4, 5, '#6a5e63');                                                         // tonearm pivot
-  line(49, 111, 41, 115, '#c8bfc4'); line(49, 112, 41, 116, '#8a8086'); R(39, 115, 3, 2, '#d8c9a0');   // tonearm + cartridge
-  P(25, 124, '#d8c9a0'); P(28, 124, '#d8c9a0');                                        // knobs on the front
+  poly([[21, 108], [51, 108], [54, 119], [18, 119]], '#3a2417');                      // top surface, seen from above
+  ellipse(33, 114, 13, 4, '#0b0b0f'); ellipse(33, 114, 10, 3, '#17171d');             // vinyl on the platter, with a groove ring
+  ellipse(33, 114, 4, 2, '#6a1a20'); P(33, 114, '#0b0b0f');                           // label + spindle
+  R(48, 109, 4, 5, '#3e383c');                                                         // tonearm pivot
+  line(49, 111, 41, 115, '#756c72'); line(49, 112, 41, 116, '#4e484d'); R(39, 115, 3, 2, '#85795f');   // tonearm + cartridge
+  P(25, 124, '#85795f'); P(28, 124, '#85795f');                                        // knobs on the front
   rc.restore();
 
   // ---- candelabra: slender wrought iron, three candles (the flames are animated in render()) ----
@@ -351,7 +351,6 @@ const SECTIONS = {
       '<span class="eyebrow">01 — about</span>',
       '<h2>Frontend engineer with a designer’s eye.</h2>',
       "<p>Hi, I'm Beatriz. I build interfaces that feel considered: clear structure, calm motion, and a lot of care about the details people only notice when they're missing.</p>",
-      '<p class="note">// TODO: replace with your own story</p>',
     ],
   },
   work: {
@@ -382,7 +381,6 @@ const SECTIONS = {
       '<ul><li><b>Trails</b>Mountains, silence, long climbs. A favourite hike goes here.</li>' +
       '<li><b>Records</b>The albums on repeat while I work. A playlist or a favourite record goes here.</li>' +
       '<li><b>Films</b>Slow, strange, atmospheric cinema. A few favourites go here.</li></ul>',
-      '<p class="note">// TODO: add your own picks, photos or links</p>',
     ],
   },
   contact: {
