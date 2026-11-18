@@ -141,7 +141,7 @@ function drawRoom() {
     }
   }
 
-  // ---- the picture (opens "passions"): simple dark frame, dusk mountain ----
+  // ---- the picture (opens "off-screen"): simple dark frame, dusk mountain ----
   rc.save(); rc.translate(OX + 66, OY - 14);  // high on the right wall, above the chair, clear of the computer
   line(176, 22, 190, 11, C.metal); line(204, 22, 190, 11, C.metal);   // hanging cord
   R(168, 22, 44, 40, C.wood); R(168, 22, 44, 1, C.woodHi);
@@ -221,7 +221,7 @@ function drawRoom() {
   light(227, 86, 68, '255,200,90', 0.07);                                // lamp (yellow)
   light(190, 108, 34, '109,255,176', 0.06);                               // screen
 
-  // ---- a corner for music and films: stack of sleeves, vintage radio, vinyl, film reel (opens "passions") ----
+  // ---- a corner for music and films: stack of sleeves, vintage radio, vinyl, film reel (opens "off-screen") ----
   rc.save(); rc.translate(OX + 24, OY);
   shadow(36, 155, 32, 3);
   // film reel, standing to the left
@@ -350,8 +350,8 @@ const SECTIONS = {
     lines: [
       '<span class="eyebrow">01 — about</span>',
       '<h2>Frontend developer driven by human-centred design.</h2>',
-      "<p>I'm Beatriz, a frontend developer and UX/UI designer. I'm interested in the intersection of technology, UX and design, and in creating digital experiences that are both functional and human.</p>",
-      "<p>My master's thesis focused on designing and studying an explainable, AI-assisted application for breast cancer diagnosis. I also have a weakness for immersive, creative web experiences, and I'm comfortable working with AI-powered engineering tools.</p>",
+      "<p>I'm Beatriz, a frontend developer and UX/UI designer. I'm interested in the intersection of technology, UX and design, and in creating digital experiences that are both <span class=hl>functional and human</span>.</p>",
+      "<p>My master's thesis focused on designing and studying an <span class=hl>explainable, AI-assisted</span> application for breast cancer diagnosis. I also have a weakness for immersive, creative web experiences, and I'm comfortable working with AI-powered engineering tools.</p>",
       '<ul><li><b>MSc, Computer Science and Engineering</b>Instituto Superior Técnico · 2023–2025</li>' +
       '<li><b>BSc, Informatics Engineering</b>Faculdade de Ciências de Lisboa · 2019–2023</li>' +
       '<li><b>Minor, Entrepreneurship and Innovation</b>Instituto Superior Técnico · 2023–2024</li>' +
@@ -364,11 +364,11 @@ const SECTIONS = {
     lines: [
       '<span class="eyebrow">02 — selected work</span>',
       '<h2>Where I’ve worked and what I’ve built.</h2>',
-      '<ul><li><b>Frontend Developer &amp; UX/UI Designer</b>Accenture · Oct 2025 – present. Energy data management, in a cross-functional team that brings business and data processes into the frontend. Client work is confidential, so there are no screenshots or links. Stack: Angular, TypeScript, D3.js, REST APIs, AWS.</li>' +
+      '<ul><li><b>Frontend Developer &amp; UX/UI Designer</b><span class=hl>Accenture</span> · Oct 2025 – present. Energy data management, in a cross-functional team that brings business and data processes into the frontend. Client work is confidential, so there are no screenshots or links. Stack: Angular, TypeScript, D3.js, REST APIs, AWS.</li>' +
       '<li><b>Website for a local guesthouse</b>A personal project, built for fun for an alojamento local. In progress; the link is coming soon.</li>' +
       '<li><b>Master’s thesis</b><a href="https://www.researchgate.net/publication/397756928_Towards_Ambiguity-aware_AI_Assistants_for_Breast_Cancer_Diagnosis" target="_blank" rel="noopener">“Towards Ambiguity-aware AI Assistants for Breast Cancer Diagnosis”</a>, Instituto Superior Técnico. Final grade 18/20.</li>' +
-      '<li><b>Cultural Manager &amp; Marketing Collaborator</b>Diferencial · Jan 2024 – Jun 2025. Led a team of 25 members running cultural events and initiatives across Lisbon, and managed social media and branding for the Instituto Superior Técnico newspaper.</li>' +
-      '<li><b>Teacher</b>Happy Code · Nov 2022 – Jul 2023. Taught programming and robotics to children.</li></ul>',
+      '<li><b>Cultural Manager &amp; Marketing Collaborator</b><span class=hl>Diferencial</span> · Jan 2024 – Jun 2025. Led a team of 25 members running cultural events and initiatives across Lisbon, and managed social media and branding for the Instituto Superior Técnico newspaper.</li>' +
+      '<li><b>Teacher</b><span class=hl>Happy Code</span> · Nov 2022 – Jul 2023. Taught programming and robotics to children.</li></ul>',
     ],
   },
   design: {
@@ -383,15 +383,20 @@ const SECTIONS = {
       '<li><b>Workflow</b>Git / GitHub, Confluence, Jira, and GenAI as a tool for code generation, refactoring, debugging and documentation</li></ul>',
     ],
   },
-  passions: {
-    title: 'passions',
+  offscreen: {
+    title: 'off-screen',
     lines: [
-      '<span class="eyebrow">04 — passions</span>',
-      '<h2>Away from the screen.</h2>',
-      "<p>I hike a lot, play tennis, and love music, cinema and painting. It's where most of my good ideas show up.</p>",
-      '<ul><li><b>Hiking</b>My favourite way to switch off.</li>' +
-      '<li><b>Music</b>A constant in my life: violinist from 2008 to 2017, with an orchestra internship in 2015–2016.</li>' +
-      '<li><b>Film</b>Cinema is a big part of my life. In 2023 I took a summer course on cinema, heritage and curatorship at NOVA FCSH.</li></ul>',
+      '<span class="eyebrow">04 — off-screen</span>',
+      '<h2>Off-screen.</h2>',
+      '<p>Outside of technology, I’m drawn to cinema, music and the outdoors, particularly to the ways they shape how we see and experience our surroundings.</p>',
+      // The photographs live in the images/ folder. To add one, drop the file there and add another <img> line.
+      '<div class="photos">' +
+        '<img src="images/offscreen-01.jpg" alt="A mountain river running between forested slopes" loading="lazy">' +
+        '<img src="images/offscreen-02.jpg" alt="Wooden farmhouses in a green valley below a waterfall" loading="lazy">' +
+        '<img src="images/offscreen-03.jpg" alt="Sunset over the sea, seen through a rock arch" loading="lazy">' +
+        '<img src="images/offscreen-04.jpg" alt="Zebras walking across a plain below distant hills" loading="lazy">' +
+        '<img src="images/offscreen-05.jpg" alt="A turquoise river below rocky mountains" loading="lazy">' +
+      '</div>',
     ],
   },
   contact: {
@@ -415,7 +420,7 @@ let current = 'about';
 
 keys.forEach((k, i) => {
   const b = document.createElement('button');
-  b.innerHTML = `<span>0${i + 1}</span>${SECTIONS[k].title}`;
+  b.innerHTML = `<span>${i + 1}.</span>${SECTIONS[k].title}`;
   b.dataset.key = k;
   b.addEventListener('click', () => show(k));
   nav.appendChild(b);
