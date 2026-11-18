@@ -45,15 +45,14 @@ const C = {
   screenBg: '#031008', green: '109,255,176',
 };
 
-// Armchair upholstery. Try the others by opening index.html?chair=green (or navy, burgundy)
-// Armchair upholstery. Try the others with index.html?chair=burgundy (or plum, charcoal)
+// Armchair upholstery: charcoal is the one in use. To preview another, open index.html?chair=plum (or green, burgundy)
 const CHAIRS = {
   green:    { base: '#12251e', hi: '#1a352b', dk: '#08130f', glow: '#2a5242', btn: '#040b08' },   // deep and muted: it sits in the shadows
   burgundy: { base: '#4a0f18', hi: '#6c1a26', dk: '#26070c', glow: '#9a2a38', btn: '#14040a' },
   plum:     { base: '#3a1a3a', hi: '#573057', dk: '#1e0c1e', glow: '#7e4a7e', btn: '#100610' },
-  charcoal: { base: '#26262e', hi: '#3c3c48', dk: '#121218', glow: '#5a5a6a', btn: '#08080c' },
+  charcoal: { base: '#292530', hi: '#3c3745', dk: '#131018', glow: '#5a5266', btn: '#08060b' },   // grey with a touch of purple, like the cables
 };
-let CHAIR = CHAIRS[new URLSearchParams(location.search).get('chair')] || CHAIRS.green;
+const CHAIR = CHAIRS[new URLSearchParams(location.search).get('chair')] || CHAIRS.charcoal;
 
 // filled polygon (scanline) — lets us draw curved silhouettes like the chair
 function poly(pts, c) {
@@ -503,11 +502,6 @@ lbEl.addEventListener('touchend', e => {
 document.getElementById('toRoom').addEventListener('click', () => window.scrollTo({ top: 0, behavior }));
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape' && !lbOpen()) window.scrollTo({ top: 0, behavior });
-  // press C to try the armchair in each colour (a design tool; delete this block once you've chosen)
-  if (e.key === 'c' || e.key === 'C') {
-    const names = Object.keys(CHAIRS), next = names[(names.findIndex(n => CHAIRS[n] === CHAIR) + 1) % names.length];
-    CHAIR = CHAIRS[next]; drawRoom(); render();
-  }
 });
 
 // Replay the little reveal each time the panel scrolls into view
