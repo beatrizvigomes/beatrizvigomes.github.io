@@ -141,7 +141,7 @@ function drawRoom() {
     }
   }
 
-  // ---- the picture (opens "trails"): simple dark frame, dusk mountain ----
+  // ---- the picture (opens "passions"): simple dark frame, dusk mountain ----
   rc.save(); rc.translate(OX + 66, OY - 14);  // high on the right wall, above the chair, clear of the computer
   line(176, 22, 190, 11, C.metal); line(204, 22, 190, 11, C.metal);   // hanging cord
   R(168, 22, 44, 40, C.wood); R(168, 22, 44, 1, C.woodHi);
@@ -221,7 +221,7 @@ function drawRoom() {
   light(227, 86, 68, '255,200,90', 0.07);                                // lamp (yellow)
   light(190, 108, 34, '109,255,176', 0.06);                               // screen
 
-  // ---- a corner for records and films: stack of sleeves, vintage radio, vinyl, film reel (opens "trails") ----
+  // ---- a corner for music and films: stack of sleeves, vintage radio, vinyl, film reel (opens "passions") ----
   rc.save(); rc.translate(OX + 24, OY);
   shadow(36, 155, 32, 3);
   // film reel, standing to the left
@@ -349,49 +349,59 @@ const SECTIONS = {
     title: 'about',
     lines: [
       '<span class="eyebrow">01 — about</span>',
-      '<h2>Frontend engineer with a designer’s eye.</h2>',
-      "<p>Hi, I'm Beatriz. I build interfaces that feel considered: clear structure, calm motion, and a lot of care about the details people only notice when they're missing.</p>",
+      '<h2>Frontend developer driven by human-centred design.</h2>',
+      "<p>I'm Beatriz, a frontend developer and UX/UI designer. I'm interested in the intersection of technology, UX and design, and in creating digital experiences that are both functional and human.</p>",
+      "<p>My master's thesis focused on designing and studying an explainable, AI-assisted application for breast cancer diagnosis. I also have a weakness for immersive, creative web experiences, and I'm comfortable working with AI-powered engineering tools.</p>",
+      '<ul><li><b>MSc, Computer Science and Engineering</b>Instituto Superior Técnico · 2023–2025</li>' +
+      '<li><b>BSc, Informatics Engineering</b>Faculdade de Ciências de Lisboa · 2019–2023</li>' +
+      '<li><b>Minor, Entrepreneurship and Innovation</b>Instituto Superior Técnico · 2023–2024</li>' +
+      '<li><b>Languages</b>Portuguese, English</li>' +
+      '<li><b>Volunteering</b>Casa de Saúde do Telhal, Serve The City, Refood</li></ul>',
     ],
   },
   work: {
     title: 'work',
     lines: [
       '<span class="eyebrow">02 — selected work</span>',
-      '<h2>Things I’ve built.</h2>',
-      '<ul><li><b>Project One</b>Short description, stack, your role.</li>' +
-      '<li><b>Project Two</b>Short description, stack, your role.</li>' +
-      '<li><b>Project Three</b>Short description, stack, your role.</li></ul>',
+      '<h2>Where I’ve worked and what I’ve built.</h2>',
+      '<ul><li><b>Frontend Developer &amp; UX/UI Designer</b>Accenture · Oct 2025 – present. Energy data management, in a cross-functional team that brings business and data processes into the frontend. Client work is confidential, so there are no screenshots or links. Stack: Angular, TypeScript, D3.js, REST APIs, AWS.</li>' +
+      '<li><b>Website for a local guesthouse</b>A personal project, built for fun for an alojamento local. In progress; the link is coming soon.</li>' +
+      '<li><b>Master’s thesis</b><a href="https://www.researchgate.net/publication/397756928_Towards_Ambiguity-aware_AI_Assistants_for_Breast_Cancer_Diagnosis" target="_blank" rel="noopener">“Towards Ambiguity-aware AI Assistants for Breast Cancer Diagnosis”</a>, Instituto Superior Técnico. Final grade 18/20.</li>' +
+      '<li><b>Cultural Manager &amp; Marketing Collaborator</b>Diferencial · Jan 2024 – Jun 2025. Led a team of 25 members running cultural events and initiatives across Lisbon, and managed social media and branding for the Instituto Superior Técnico newspaper.</li>' +
+      '<li><b>Teacher</b>Happy Code · Nov 2022 – Jul 2023. Taught programming and robotics to children.</li></ul>',
     ],
   },
   design: {
     title: 'design',
     lines: [
-      '<span class="eyebrow">03 — design</span>',
+      '<span class="eyebrow">03 — design &amp; skills</span>',
       '<h2>UX/UI, from research to polish.</h2>',
-      '<p>Research, wireframes, interface design, prototyping and design systems, with accessibility built in from the start.</p>',
-      '<ul><li><b>Process</b>Discovery, flows, prototypes, testing.</li><li><b>Tools</b>Figma, design tokens, handoff in both directions.</li></ul>',
+      "<p>I apply UX best practices from my master's thesis research to deliver end-to-end visual solutions independently, and then build them.</p>",
+      '<ul><li><b>Design</b>Figma, UX best practices, interface design</li>' +
+      '<li><b>Frontend</b>JavaScript, TypeScript, React, Angular, D3.js</li>' +
+      '<li><b>Also</b>Java, Python, MySQL, REST APIs, AWS</li>' +
+      '<li><b>Workflow</b>Git / GitHub, Confluence, Jira, and GenAI as a tool for code generation, refactoring, debugging and documentation</li></ul>',
     ],
   },
-  trails: {
-    title: 'trails',
+  passions: {
+    title: 'passions',
     lines: [
-      '<span class="eyebrow">04 — trails, records &amp; films</span>',
+      '<span class="eyebrow">04 — passions</span>',
       '<h2>Away from the screen.</h2>',
-      "<p>I'm usually somewhere quiet and far from a desk. It's where most of my good ideas show up.</p>",
-      '<ul><li><b>Trails</b>Mountains, silence, long climbs. A favourite hike goes here.</li>' +
-      '<li><b>Records</b>The albums on repeat while I work. A playlist or a favourite record goes here.</li>' +
-      '<li><b>Films</b>Slow, strange, atmospheric cinema. A few favourites go here.</li></ul>',
+      "<p>I hike a lot, play tennis, and love music, cinema and painting. It's where most of my good ideas show up.</p>",
+      '<ul><li><b>Hiking</b>My favourite way to switch off.</li>' +
+      '<li><b>Music</b>A constant in my life: violinist from 2008 to 2017, with an orchestra internship in 2015–2016.</li>' +
+      '<li><b>Film</b>Cinema is a big part of my life. In 2023 I took a summer course on cinema, heritage and curatorship at NOVA FCSH.</li></ul>',
     ],
   },
   contact: {
     title: 'contact',
     lines: [
       '<span class="eyebrow">05 — contact</span>',
-      '<h2>Let’s talk.</h2>',
-      '<p>Want to work together, or just say hi?</p>',
-      '<ul><li><b>Email</b><a href="mailto:hello@example.com">hello@example.com</a></li>' +
-      '<li><b>GitHub</b><a href="#">github.com/your-handle</a></li>' +
-      '<li><b>LinkedIn</b><a href="#">linkedin.com/in/your-handle</a></li></ul>',
+      '<h2>Get in touch.</h2>',
+      '<ul><li><b>Email</b><a href="mailto:beatrizvigomes@gmail.com">beatrizvigomes@gmail.com</a></li>' +
+      '<li><b>GitHub</b><a href="https://github.com/beatrizvigomes" target="_blank" rel="noopener">github.com/beatrizvigomes</a></li>' +
+      '<li><b>LinkedIn</b><a href="https://www.linkedin.com/in/beatriz-gomes-03163620b" target="_blank" rel="noopener">linkedin.com/in/beatriz-gomes-03163620b</a></li></ul>',
     ],
   },
 };

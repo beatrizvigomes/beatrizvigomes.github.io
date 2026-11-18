@@ -158,3 +158,12 @@ body { background: var(--bg); color: var(--text); font-family: var(--sans); }
   .glow-lamp, .scroll-cue i, .hs-monitor, .hs-monitor::after, .content .line { animation: none; opacity: 1; transform: none; }
   .hs-monitor::after { transform: translateX(-50%); }
 }
+
+/* ---------- Quiet scrollbars: thin, dark, in the site's green (instead of the default white one) ---------- */
+html { scrollbar-width: thin; scrollbar-color: #25493b var(--bg); }
+.content { scrollbar-width: thin; scrollbar-color: #25493b transparent; }
+@supports not (scrollbar-color: auto) {          /* older Safari */
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #25493b; border-radius: 8px; }
+}
