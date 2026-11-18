@@ -376,7 +376,7 @@ const SECTIONS = {
       '<span class="eyebrow">02 — selected work</span>',
       '<h2>Where I’ve worked and what I’ve built.</h2>',
       '<ul><li><b>Frontend Developer &amp; UX/UI Designer</b><span class=hl>Accenture</span> · Oct 2025 – present. Energy data management, in a cross-functional team that brings business and data processes into the frontend. Client work is confidential, so there are no screenshots or links. Stack: Angular, TypeScript, D3.js, REST APIs, AWS.</li>' +
-      '<li><b>Website for a local guesthouse</b>A personal project, built for fun for an alojamento local. In progress; the link is coming soon.</li>' +
+      '<li><b>Website for a local guesthouse</b>In progress; the link is coming soon.</li>' +
       '<li><b>Master’s thesis</b><a href="https://www.researchgate.net/publication/397756928_Towards_Ambiguity-aware_AI_Assistants_for_Breast_Cancer_Diagnosis" target="_blank" rel="noopener">“Towards Ambiguity-aware AI Assistants for Breast Cancer Diagnosis”</a>, Instituto Superior Técnico. Final grade 18/20.</li>' +
       '<li><b>Cultural Manager &amp; Marketing Collaborator</b><span class=hl>Diferencial</span> · Jan 2024 – Jun 2025. Led a team of 25 members running cultural events and initiatives across Lisbon, and managed social media and branding for the Instituto Superior Técnico newspaper.</li>' +
       '<li><b>Teacher</b><span class=hl>Happy Code</span> · Nov 2022 – Jul 2023. Taught programming and robotics to children.</li></ul>',
@@ -387,7 +387,7 @@ const SECTIONS = {
     lines: [
       '<span class="eyebrow">03 — design &amp; skills</span>',
       '<h2>UX/UI, from research to polish.</h2>',
-      "<p>I apply UX best practices from my master's thesis research to deliver end-to-end visual solutions independently, and then build them.</p>",
+      "<p>I studied UX and interface design throughout my bachelor's and master's degrees, and I use those best practices to deliver end-to-end visual solutions independently, and then build them.</p>",
       '<ul><li><b>Design</b>Figma, UX best practices, interface design</li>' +
       '<li><b>Frontend</b>JavaScript, TypeScript, React, Angular, D3.js</li>' +
       '<li><b>Also</b>Java, Python, MySQL, REST APIs, AWS</li>' +
