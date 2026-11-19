@@ -414,7 +414,7 @@ const SECTIONS = {
     lines: [
       '<span class="eyebrow">02 — selected work</span>',
       '<h2>Where I’ve worked and what I’ve built.</h2>',
-      '<ul><li><b>Frontend Developer &amp; UX/UI Designer</b><span class=hl>Accenture</span> · Oct 2025 – present. Energy data management, in a cross-functional team that brings business and data processes into the frontend. Client work is confidential, so there are no screenshots or links. Stack: Angular, TypeScript, D3.js, REST APIs, AWS.</li>' +
+      '<ul><li><b>Frontend Developer &amp; UX/UI Designer</b><span class=hl>Accenture</span> · Oct 2025 – present. I designed an energy data management application from scratch, from UX/UI in Figma to the frontend implementation, including unit tests, working in a cross-functional team that brings business and data processes into the interface. Client work is confidential, so there are no screenshots or links. Stack: Angular, TypeScript, D3.js, REST APIs, AWS.</li>' +
       '<li><b>Website for a local guesthouse</b>In progress; the link is coming soon.</li>' +
       '<li><b>Master’s thesis</b><a href="https://www.researchgate.net/publication/397756928_Towards_Ambiguity-aware_AI_Assistants_for_Breast_Cancer_Diagnosis" target="_blank" rel="noopener">“Towards Ambiguity-aware AI Assistants for Breast Cancer Diagnosis”</a>, Instituto Superior Técnico. Final grade 18/20.</li>' +
       '<li><b>Cultural Manager &amp; Marketing Collaborator</b><span class=hl>Diferencial</span> · Jan 2024 – Jun 2025. Led a team of 25 members running cultural events and initiatives across Lisbon, and managed social media and branding for the Instituto Superior Técnico newspaper.</li>' +
