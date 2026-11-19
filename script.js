@@ -416,7 +416,7 @@ const SECTIONS = {
       '<h2>Frontend developer driven by human-centred design.</h2>',
       "<p>I'm Beatriz, a frontend developer and UX/UI designer. I'm interested in the intersection of technology, UX and design, and in creating digital experiences that are both <span class=hl>functional and human</span>.</p>",
       "<p>My master's thesis focused on designing and studying an <span class=hl>explainable, AI-assisted</span> application for breast cancer diagnosis. I also have a weakness for immersive, creative web experiences, and I'm comfortable working with AI-powered engineering tools.</p>",
-      "<p>I love creating. I'm a <span class=hl>painter</span>, and that side of art and creation is present in everything I do.</p>",
+      "<p>I'm a <span class=hl>creative who loves to paint</span>, and that side of art and creation is present in everything I do.</p>",
       '<ul><li><b>MSc, Computer Science and Engineering</b>Instituto Superior Técnico · 2023–2025</li>' +
       '<li><b>BSc, Informatics Engineering</b>Faculdade de Ciências de Lisboa · 2019–2023</li>' +
       '<li><b>Minor, Entrepreneurship and Innovation</b>Instituto Superior Técnico · 2023–2024</li>' +
