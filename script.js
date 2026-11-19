@@ -141,7 +141,7 @@ function drawRoom() {
   }
 
   // ---- the picture (opens "off-screen"): simple dark frame, dusk mountain ----
-  rc.save(); rc.translate(OX + 66, OY - 14);  // high on the right wall, above the chair, clear of the computer
+  rc.save(); rc.translate(OX + 66, OY + 24);  // on the right wall, above the cat bed, clear of the computer
   line(176, 22, 190, 11, C.metal); line(204, 22, 190, 11, C.metal);   // hanging cord
   R(168, 22, 44, 40, C.wood); R(168, 22, 44, 1, C.woodHi);
   R(169, 23, 42, 38, '#2a2023');
@@ -164,30 +164,68 @@ function drawRoom() {
   pine(178, PY + PH, 9, '#030505'); pine(182, PY + PH, 6, '#030505'); pine(202, PY + PH, 10, '#030505');
   rc.restore();
 
-  // ---- armchair: Victorian parlour chair, front view: carved wood frame, tufted back, cabriole legs ----
-  rc.save(); rc.translate(OX + 143, OY);      // the chair sits to the right so the computer is the focus
+  // ---- a small Victorian cat bed, with the cat in it (replaces the armchair) ----
   const K = CHAIR, WD = '#2a1a14', WDH = '#4a3028';
-  const mir = pts => pts.map(([x, y]) => [250 - x, y]);              // mirror around the chair's centre (x=125)
-  shadow(125, 157, 36, 3);
-  const leg = [[100, 132], [107, 132], [106, 139], [103, 146], [106, 152], [109, 155], [97, 155], [99, 151], [101, 146], [99, 139]];
-  poly(leg, WD); poly(mir(leg), WD);                                  // cabriole legs
-  poly([[103, 120], [100, 92], [102, 74], [109, 63], [125, 58], [141, 63], [148, 74], [150, 92], [147, 120]], WD);          // carved frame
-  poly([[106, 120], [104, 92], [106, 76], [112, 66], [125, 62], [138, 66], [144, 76], [146, 92], [144, 120]], K.base);      // upholstered back
-  ellipse(125, 56, 4, 2, WD); P(125, 54, WDH);                        // carved crest
-  line(125, 58, 141, 63, WDH); line(141, 63, 148, 74, WDH);          // light catching the frame
-  line(138, 66, 144, 76, K.hi); line(144, 76, 146, 92, K.hi);
-  const bt = [[125, 73], [117, 84], [133, 84], [125, 95], [117, 106], [133, 106]];                                           // tufting (restrained)
-  [[0, 1], [0, 2], [1, 3], [2, 3], [3, 4], [3, 5]].forEach(([a, b]) => line(bt[a][0], bt[a][1], bt[b][0], bt[b][1], K.dk));
-  bt.forEach(([x, y]) => { P(x, y, K.btn); P(x - 1, y - 1, K.glow); });
-  R(97, 104, 4, 26, WD); R(149, 104, 4, 26, WD); R(100, 104, 1, 26, WDH);                                                    // arm posts
-  poly([[103, 118], [147, 118], [152, 126], [98, 126]], K.hi); R(110, 119, 30, 1, K.glow);                                   // seat (top face)
-  rr(98, 126, 54, 5, 2, K.base);                                      // seat front lip
-  rr(92, 98, 14, 9, 4, K.hi); R(95, 99, 8, 1, K.glow);                // arm pads
-  rr(144, 98, 14, 9, 4, K.hi); R(147, 99, 8, 1, K.glow);
-  R(97, 131, 56, 5, WD); R(97, 131, 56, 1, WDH);                      // apron
-  for (let x = 100; x <= 148; x += 6) ellipse(x + 2, 136, 3, 2, WD);
-  rc.restore();  // scalloped edge
+  const CX = 308;                                            // centre of the bed, on the right-hand side of the room
+  const CK = '#100e13', CW = '#cfcac2', CWS = '#a39e98', CG = '#82d9a4', CP = '#d98c98', CPI = '#6a3d49';   // cat: black, white, shade, green eyes, pink nose, ear
+  shadow(CX, 178, 31, 3);
+  // carved wooden base with a scalloped edge and four stubby legs
+  R(CX - 26, 171, 52, 3, WD); R(CX - 26, 171, 52, 1, WDH);
+  for (let x = CX - 24; x <= CX + 22; x += 6) ellipse(x + 2, 174, 3, 2, WD);
+  R(CX - 25, 175, 4, 3, WD); R(CX + 21, 175, 4, 3, WD);
+  // the cushion: a lit back rim, and a dark hollow where she lies
+  ellipse(CX, 157, 27, 10, K.hi);
+  ellipse(CX, 158, 23, 7, '#232029');                       // the hollow of the cushion: a shade darker than the fabric, not black
+  // the front rim of the cushion, with two buttons
+  rr(CX - 27, 161, 54, 11, 5, K.base);
+  R(CX - 22, 162, 44, 1, K.glow);
+  [CX - 19, CX + 19].forEach(x => { P(x, 167, K.btn); P(x - 1, 166, K.glow); });
 
+  // ---- the cat, drawn as ONE pixel sprite (46 x 22): a long low loaf, head resting on the right, tail wrapped round behind ----
+  // Each part is described by columns, so it is easy to tweak: the body is a list of [first column, last column] per row.
+  const SX = CX - 23, SY = 144;                              // top-left corner of the sprite in the room
+  const cell = (x, y, c) => P(SX + x, SY + y, c);
+  const BODY = {                                              // white body, row -> [from, to]
+    8: [12, 24], 9: [8, 27], 10: [6, 29], 11: [5, 30], 12: [4, 31], 13: [3, 32], 14: [3, 33], 15: [3, 34],
+    16: [3, 37], 17: [3, 40], 18: [4, 41], 19: [5, 41], 20: [7, 40],
+  };
+  const TAIL = [                                              // black tail: starts behind the body, wraps round the left, curls under
+    [4, 9], [3, 10], [2, 11], [1, 12], [1, 13], [1, 14], [1, 15], [1, 16], [1, 17], [2, 18], [2, 19], [3, 20],
+    [4, 21], [5, 21], [6, 21], [7, 21], [8, 21], [9, 21],
+  ];
+  const HEAD = [                                              // 16 x 13: K black, W white, G green eye, S pupil, P pink nose, I inner ear
+    '.KK..........KK.',
+    '.KKK........KKK.',
+    '.KIKK......KKIK.',
+    '.KKKKKKKKKKKKKK.',
+    '.KKKKKKWWKKKKKK.',
+    'KKKKKKKWWKKKKKKK',
+    'KKKGGGKWWKGGGKKK',
+    'KKKGSGKWWKGSGKKK',
+    '.KKKKKWWWWKKKKK.',
+    '..KWWWWWWWWWWK..',
+    '...WWWWPPWWWW...',
+    '....WWWWWWWW....',
+    '.....WWWWWW.....',
+  ];
+  const HX = 30, HY = 3;                                      // where the head sits inside the sprite
+  const HC = { K: CK, I: CPI, G: CG, S: CK, W: CW, P: CP };
+
+  // 1) tail first (it is behind the body), with a faint outline so the black does not vanish into the dark room
+  const tailAt = new Set(TAIL.flatMap(([x, y]) => [`${x},${y}`, `${x + 1},${y}`]));
+  tailAt.forEach(k => { const [x, y] = k.split(',').map(Number); [[-1,0],[1,0],[0,-1],[0,1]].forEach(([dx, dy]) => { if (!tailAt.has(`${x+dx},${y+dy}`)) cell(x + dx, y + dy, '#2e2a37'); }); });
+  tailAt.forEach(k => { const [x, y] = k.split(',').map(Number); cell(x, y, CK); });
+  // 2) the white body, with a soft shade along the bottom and the left edge
+  Object.entries(BODY).forEach(([y, [a, b]]) => { y = +y; for (let x = a; x <= b; x++) cell(x, y, (y === 20 || (x === a && y > 14)) ? CWS : CW); });
+  // 3) the small black patch on the top of her back
+  [[12, 8], [13, 8], [11, 9], [12, 9], [13, 9], [14, 9]].forEach(([x, y]) => cell(x, y, CK));
+  // 4) the head, with a faint outline on its black parts
+  const solid = (i, j) => !!(HEAD[j] && HEAD[j][i] && HEAD[j][i] !== '.');
+  HEAD.forEach((row, j) => [...row].forEach((ch, i) => {
+    if (ch === '.' && (solid(i - 1, j) || solid(i + 1, j) || solid(i, j - 1) || solid(i, j + 1))) cell(HX + i, HY + j, '#2e2a37');
+  }));
+  HEAD.forEach((row, j) => [...row].forEach((ch, i) => { if (ch !== '.') cell(HX + i, HY + j, HC[ch]); }));
+  [[-1, 11], [-2, 12], [-1, 13], [16, 11], [17, 12], [16, 13]].forEach(([dx, dy]) => cell(HX + dx, HY + dy, CWS));   // whiskers
   // ---- larger side table with the computer ----
   rc.save(); rc.translate(OX - 40, OY);
   shadow(206, 157, 38, 2);
@@ -328,6 +366,7 @@ function render() {
     ctx.fillRect(Math.round(p.x), Math.round(p.y), 1, 1);
   });
   if (reduceMotion || Math.floor(frame / 8) % 3 !== 0) { ctx.fillStyle = `rgba(${C.green},.7)`; ctx.fillRect(134, 174, 1, 1); }   // the cable's LED, blinking
+  if (!reduceMotion && frame % 48 < 2) { ctx.fillStyle = '#100e13'; ctx.fillRect(318, 153, 3, 2); ctx.fillRect(325, 153, 3, 2); ctx.fillStyle = '#4f9a73'; ctx.fillRect(318, 154, 3, 1); ctx.fillRect(325, 154, 3, 1); }   // she blinks: happy closed eyes now and then
   WICKS.forEach(([x, y]) => flame(x, y));
   glowScreen.style.opacity = screenHot ? 1.6 : 1;
   if (!reduceMotion) glowLamp.style.opacity = (0.8 + Math.random() * 0.2).toFixed(2);   // candlelight breathes unevenly

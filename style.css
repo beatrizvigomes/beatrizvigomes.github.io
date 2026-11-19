@@ -76,7 +76,7 @@ body { background: var(--bg); color: var(--text); font-family: var(--sans); }
 /* ---------- Hotspots (% of the 320x180 scene) ---------- */
 .hotspot { position: absolute; background: transparent; border: 0; cursor: pointer; }
 .hs-monitor { left: 43.25%; top: 41.8%; width: 8.5%; height: 11.1%; }
-.hs-picture { left: 68.5%;   top: 13.3%; width: 11%;  height: 17.8%; }
+.hs-picture { left: 68.5%;   top: 30.2%; width: 11%;  height: 17.8%; }
 .hs-music   { left: 17.25%; top: 58.2%; width: 15.5%;  height: 20.4%; }
 
 .hotspot::after {
