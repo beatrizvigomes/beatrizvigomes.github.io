@@ -162,6 +162,15 @@ function drawRoom() {
     R(x, base - near, 1, near, '#050808');
   }
   pine(178, PY + PH, 9, '#030505'); pine(182, PY + PH, 6, '#030505'); pine(202, PY + PH, 10, '#030505');
+
+  // Victorian touches, kept quiet: same wood tones as the frame (no gold). Beaded moulding, corner rosettes, a small crest and a title plate.
+  const FB = '#3d3033', FD = '#2c2124';
+  for (let x = 171; x <= 208; x += 2) { P(x, 23, FB); P(x, 60, FB); }          // beads along the top and bottom of the frame
+  for (let y = 25; y <= 58; y += 2) { P(169, y, FB); P(210, y, FB); }          // beads down the sides
+  [[168, 22], [209, 22], [168, 59], [209, 59]].forEach(([x, y]) => { R(x, y, 3, 3, FD); P(x + 1, y + 1, FB); });   // corner rosettes
+  R(188, 20, 4, 2, FD); P(189, 19, FD); P(190, 19, FD); P(186, 21, FD); P(193, 21, FD); P(189, 20, FB);          // a little crest on top
+  R(184, 62, 12, 3, FD); R(184, 62, 12, 1, FB);                                // title plate under the frame
+  R(172, 26, 36, 1, '#241b1e'); R(172, 57, 36, 1, '#241b1e'); R(172, 26, 1, 32, '#241b1e'); R(207, 26, 1, 32, '#241b1e');   // a fine inner line around the painting
   rc.restore();
 
   // ---- a small Victorian cat bed, with the cat in it (replaces the armchair) ----
@@ -255,7 +264,7 @@ function drawRoom() {
 
   // light passes
   // light passes: a dithered (stippled) pool of light, like the first version, plus the smooth CSS glow on top
-  light(227, 86, 68, '255,200,90', 0.07);                                // lamp (yellow)
+  light(227, 97, 68, '255,200,90', 0.07);                                // lamp (yellow)
   light(190, 108, 34, '109,255,176', 0.06);                               // screen
 
   // ---- a corner for music and films: stack of sleeves, vintage radio, vinyl, film reel (opens "off-screen") ----
@@ -286,21 +295,26 @@ function drawRoom() {
   P(25, 124, '#85795f'); P(28, 124, '#85795f');                                        // knobs on the front
   rc.restore();
 
-  // ---- candelabra: slender wrought iron, three candles (the flames are animated in render()) ----
+  // ---- candelabra: slender wrought iron, one candle (the flame is animated in render()) ----
   rc.save(); rc.translate(OX - 40, OY);
   const LX = 227, IR = '#4d4448', IRH = '#80767c', WAX = '#e8dcc0', WAXD = '#b8a888';
   R(221, 96, 12, 2, IR); R(223, 95, 8, 1, IRH);                          // foot
   spiral(219, 95, 3, IR); spiral(235, 95, 3, IR);                        // curls at the foot
-  for (let y = 70; y <= 95; y++) { const o = Math.round(1.1 * Math.sin(y * 0.8)); P(LX - o, y, IR); P(LX + o, y, IRH); }   // slender twisted stem
-  ellipse(LX, 88, 2, 3, IR); P(LX - 1, 87, IRH);                         // knops
-  ellipse(LX, 80, 2, 2, IR);
-  curve(LX, 79, 217, 79, 214, 72, IR); curve(LX, 79, 237, 79, 240, 72, IR);     // graceful arms
-  spiral(219, 83, 2, IR); spiral(235, 83, 2, IR); line(221, 83, 225, 83, IR); line(229, 83, 233, 83, IR);
-  R(224, 69, 7, 1, IRH); R(212, 71, 5, 1, IRH); R(238, 71, 5, 1, IRH);   // candle cups
-  R(226, 60, 3, 9, WAX); R(226, 60, 1, 9, WAXD); P(227, 59, '#2a1a14');  // candles + wicks
-  R(213, 63, 3, 8, WAX); R(213, 63, 1, 8, WAXD); P(214, 62, '#2a1a14');
-  R(239, 63, 3, 8, WAX); R(239, 63, 1, 8, WAXD); P(240, 62, '#2a1a14');
-  P(228, 64, WAXD); P(215, 67, WAXD);                                    // a little wax
+  for (let y = 78; y <= 95; y++) { const o = Math.round(1.1 * Math.sin(y * 0.8)); P(LX - o, y, IR); P(LX + o, y, IRH); }   // slender twisted stem (shorter now)
+  ellipse(LX, 80, 2, 2, IR); P(LX - 1, 79, IRH);                         // knop under the cup
+  ellipse(LX, 91, 2, 3, IR); P(LX - 1, 90, IRH);                         // lower knop
+  // two arms that sweep out from the stem and curl inward into a spiral, like a pair of scrolls
+  [-1, 1].forEach(side => {
+    curve(LX + side, 87, LX + side * 5, 89, LX + side * 9, 86, IR);      // leaves the stem and dips outwards
+    const cx = LX + side * 9, cy = 79, R0 = 7;                           // the circle the scroll winds round
+    for (let a = 0; a <= 1; a += 0.004) {
+      const ang = Math.PI / 2 - side * a * Math.PI * 2.5, r = R0 * (1 - 0.75 * a);   // out, up, over and back in
+      P(Math.round(cx + r * Math.cos(ang)), Math.round(cy + r * Math.sin(ang)), IR);
+    }
+  });
+  R(224, 77, 7, 1, IRH);                                                 // the one candle cup
+  R(226, 69, 3, 8, WAX); R(226, 69, 1, 8, WAXD); P(227, 68, '#2a1a14');  // the candle + its wick
+  P(228, 72, WAXD); P(228, 73, WAXD);                                    // a little wax
   rc.restore();
 }
 
@@ -321,7 +335,7 @@ const makeRow = () => {
 const rows = Array.from({ length: 4 }, makeRow);
 const glowScreen = document.getElementById('glowScreen');
 const glowLamp = document.querySelector('.glow-lamp');
-const WICKS = [[227, 81], [214, 84], [240, 84]];   // where the three candle flames sit (x, wick y)
+const WICKS = [[227, 90]];   // where the candle flame sits (x, wick y)
 let frame = 0;
 
 // dust motes drifting in the candlelight (the speckles from the first version)
@@ -402,6 +416,7 @@ const SECTIONS = {
       '<h2>Frontend developer driven by human-centred design.</h2>',
       "<p>I'm Beatriz, a frontend developer and UX/UI designer. I'm interested in the intersection of technology, UX and design, and in creating digital experiences that are both <span class=hl>functional and human</span>.</p>",
       "<p>My master's thesis focused on designing and studying an <span class=hl>explainable, AI-assisted</span> application for breast cancer diagnosis. I also have a weakness for immersive, creative web experiences, and I'm comfortable working with AI-powered engineering tools.</p>",
+      "<p>I love creating. I'm a <span class=hl>painter</span>, and that side of art and creation is present in everything I do.</p>",
       '<ul><li><b>MSc, Computer Science and Engineering</b>Instituto Superior Técnico · 2023–2025</li>' +
       '<li><b>BSc, Informatics Engineering</b>Faculdade de Ciências de Lisboa · 2019–2023</li>' +
       '<li><b>Minor, Entrepreneurship and Innovation</b>Instituto Superior Técnico · 2023–2024</li>' +
@@ -421,12 +436,13 @@ const SECTIONS = {
       '<li><b>Teacher</b><span class=hl>Happy Code</span> · Nov 2022 – Jul 2023. Taught programming and robotics to children.</li></ul>',
     ],
   },
-  design: {
-    title: 'design',
+  skills: {
+    title: 'skills',
     lines: [
-      '<span class="eyebrow">03 — design &amp; skills</span>',
-      '<h2>UX/UI, from research to polish.</h2>',
-      "<p>I studied UX and interface design throughout my bachelor's and master's degrees, and I use those best practices to deliver end-to-end visual solutions independently, and then build them.</p>",
+      '<span class="eyebrow">03 — skills</span>',
+      '<h2>How I work, and what I work with.</h2>',
+      "<p>I'm <span class=hl>curious</span>, <span class=hl>attentive to my colleagues' feedback</span> and <span class=hl>communicative</span>. I value <span class=hl>open and honest communication</span>, and I adapt easily to new teams and contexts.</p>",
+      "<p>I studied UX and interface design throughout my bachelor's and master's degrees, and I use those best practices to deliver end-to-end visual solutions independently, and then build them. My work experience and my minor taught me the steps to create a product adapted to the client's needs, through <span class=hl>refined iterations</span>.</p>",
       '<ul><li><b>Design</b>Figma, UX best practices, interface design</li>' +
       '<li><b>Frontend</b>JavaScript, TypeScript, React, Angular, D3.js</li>' +
       '<li><b>Also</b>Java, Python, MySQL, REST APIs, AWS</li>' +

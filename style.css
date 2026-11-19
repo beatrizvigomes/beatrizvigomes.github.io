@@ -39,7 +39,7 @@ body { background: var(--bg); color: var(--text); font-family: var(--sans); }
 
 .glow-lamp {
   /* candlelight: the flicker is driven from script.js */
-  background: radial-gradient(ellipse 20% 40% at 56.75% 37%, rgba(255, 190, 80, .15), rgba(255, 160, 50, .04) 55%, transparent 72%);
+  background: radial-gradient(ellipse 20% 40% at 56.75% 41%, rgba(255, 190, 80, .15), rgba(255, 160, 50, .04) 55%, transparent 72%);
   mix-blend-mode: screen;
 }
 .glow-screen {
@@ -76,7 +76,7 @@ body { background: var(--bg); color: var(--text); font-family: var(--sans); }
 /* ---------- Hotspots (% of the 320x180 scene) ---------- */
 .hotspot { position: absolute; background: transparent; border: 0; cursor: pointer; }
 .hs-monitor { left: 43.25%; top: 41.8%; width: 8.5%; height: 11.1%; }
-.hs-picture { left: 68.5%;   top: 30.2%; width: 11%;  height: 17.8%; }
+.hs-picture { left: 68.5%;   top: 28.9%; width: 11%;  height: 20.4%; }
 .hs-music   { left: 17.25%; top: 58.2%; width: 15.5%;  height: 20.4%; }
 
 .hotspot::after {
